@@ -50,7 +50,6 @@ class JuegoMillonario {
     }
 
     handleNombreInput(e) {
-        // Habilita el botón solo si el estudiante escribió su nombre
         this.dom.iniciarJuegoBoton.disabled = e.target.value.trim().length === 0;
     }
 
@@ -68,9 +67,25 @@ class JuegoMillonario {
         }));
     }
 
+    desbloquearAudioMovil() {
+        // Desbloquea la pila de sonido en navegadores móviles (iOS Safari / Android Chrome)
+        const listaAudios = [audioInicio, audioRespuestaCorrecta, audioRespuestaIncorrecta, audioVictoria, audioComodin5050];
+        listaAudios.forEach(audio => {
+            const promise = audio.play();
+            if (promise !== undefined) {
+                promise.then(() => {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }).catch(() => {});
+            }
+        });
+    }
+
     iniciarJuego() {
         this.state.jugadorSeleccionado = this.dom.nombreInput.value.trim();
         if (!this.state.jugadorSeleccionado) return;
+
+        this.desbloquearAudioMovil();
 
         this.state.preguntas = this.seleccionarPreguntasAlAzar();
         this.state.preguntaActualIndex = 0;
@@ -116,20 +131,18 @@ class JuegoMillonario {
         this.dom.timerContenedor.classList.remove('advertencia');
     }
 
-cargarPregunta() {
+    cargarPregunta() {
         if (!this.state.juegoActivo || this.state.preguntaActualIndex >= this.state.preguntas.length) return;
 
         const preguntaData = this.state.preguntas[this.state.preguntaActualIndex];
         this.dom.preguntaTexto.textContent = `${preguntaData.nivel}. ${preguntaData.pregunta}`;
 
-        // 1. Crear una copia de las opciones y mezclar su orden aleatoriamente
         const opcionesMezcladas = [...preguntaData.opciones];
         for (let i = opcionesMezcladas.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [opcionesMezcladas[i], opcionesMezcladas[j]] = [opcionesMezcladas[j], opcionesMezcladas[i]];
         }
 
-        // 2. Asignar las opciones mezcladas a los botones A, B, C, D
         const letras = ['A', 'B', 'C', 'D'];
         this.dom.opciones.forEach((btn, index) => {
             const opcionTexto = opcionesMezcladas[index];
@@ -147,7 +160,7 @@ cargarPregunta() {
             window.MathJax.typesetPromise([this.dom.preguntaTexto, ...this.dom.opciones]);
         }
 
-        audioInicio.play();
+        audioInicio.play().catch(() => {});
         this.startTimer();
     }
 
@@ -186,7 +199,7 @@ cargarPregunta() {
         if (respuestaSeleccionadaSource === respuestaCorrectaSource) {
             opcionSeleccionada.classList.add('correcta');
             this.state.dineroGanado = preguntaData.premio;
-            audioRespuestaCorrecta.play();
+            audioRespuestaCorrecta.play().catch(() => {});
 
             if (this.state.preguntaActualIndex === this.state.preguntas.length - 1) {
                 setTimeout(() => this.finalizarJuego('victoria'), 2000);
@@ -204,7 +217,7 @@ cargarPregunta() {
             const botonCorrecto = this.dom.opciones.find(btn => btn.getAttribute('data-source') === respuestaCorrectaSource);
             if (botonCorrecto) botonCorrecto.classList.add('correcta');
 
-            audioRespuestaIncorrecta.play();
+            audioRespuestaIncorrecta.play().catch(() => {});
             setTimeout(() => this.finalizarJuego('perdida'), 3000);
         }
     }
@@ -217,33 +230,30 @@ cargarPregunta() {
         audioRespuestaCorrecta.pause();
 
         let mensajeFinal = "";
-        
-        // CALCULAR NOTA (0.0 a 5.0) basada en las preguntas superadas
         let preguntasCorrectas = this.state.preguntaActualIndex;
+        
         if (razon === 'victoria') {
             preguntasCorrectas = this.config.NUM_PREGUNTAS;
             mensajeFinal = `¡VICTORIA! ¡Excelente trabajo!`;
-            audioVictoria.play();
+            audioVictoria.play().catch(() => {});
         } else if (razon === 'perdida_tiempo') {
             mensajeFinal = `¡Tiempo Agotado!`;
-            audioRespuestaIncorrecta.play();
+            audioRespuestaIncorrecta.play().catch(() => {});
         } else {
             mensajeFinal = `¡Juego Terminado!`;
         }
 
         let notaCalculada = (preguntasCorrectas / this.config.NUM_PREGUNTAS) * 5.0;
-        let notaFormateada = notaCalculada.toFixed(1); // Muestra 1 decimal (ej: "3.5")
+        let notaFormateada = notaCalculada.toFixed(1);
 
         this.dom.opciones.forEach(btn => btn.disabled = true);
         this.dom.comodin5050Boton.disabled = true;
         this.dom.preguntaTexto.innerHTML = `<h2>${mensajeFinal}</h2><p>Nota obtenida: ${notaFormateada}</p>`;
         this.dom.gameStatusElement.textContent = "Generando diploma...";
 
-        // Redirigir al Diploma pasados 4 segundos
         setTimeout(() => {
             const fecha = new Date().toLocaleString('es-CO', { dateStyle: 'short', timeStyle: 'short' });
             
-            // Construye los parámetros para el archivo diploma.html
             const params = new URLSearchParams({
                 nombre: this.state.jugadorSeleccionado,
                 juego: "El Millonario - Repaso General",
@@ -251,14 +261,13 @@ cargarPregunta() {
                 fecha: fecha
             });
 
-            // Asume que nombraste a tu archivo diploma_2.html como "diploma.html"
             window.location.href = `diploma.html?${params.toString()}`;
         }, 4000);
     }
 
     usarComodin5050() {
         if (!this.state.juegoActivo || this.state.comodinesUsados['5050']) return;
-        audioComodin5050.play();
+        audioComodin5050.play().catch(() => {});
 
         const preguntaData = this.state.preguntas[this.state.preguntaActualIndex];
         const opciones = this.dom.opciones;

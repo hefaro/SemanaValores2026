@@ -3,12 +3,10 @@ body {
     color: #f0f6fc;
     margin: 0;
     padding: 0; 
-    
     display: flex;
     justify-content: center;
     align-items: flex-start; 
     min-height: 100vh;
-    
     background-image: url('recursos/fondo.jpg'); 
     background-size: cover; 
     background-position: center center; 
@@ -25,25 +23,21 @@ body {
     margin-bottom: 20px;
 }
 
-
-
 .pregunta-seccion {
     flex-grow: 1;
-    background-color: rgba(22, 27, 34, 0.1); 
+    background-color: rgba(22, 27, 34, 0.85); 
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8); 
 }
 
-
-/* Este es el bloque con el fondo añadido */
 .pregunta-texto {
     font-size: 1.8em;
     font-weight: bold;
     margin-bottom: 40px;
     padding: 20px;
-    border: 2px solid #586069; /* Unificamos el color del borde con las opciones */
-    background-color: #21262d; /* <-- LÍNEA AÑADIDA */
+    border: 2px solid #586069;
+    background-color: #21262d;
     border-radius: 8px;
     text-align: center;
     min-height: 80px; 
@@ -69,6 +63,7 @@ body {
     transition: background-color 0.3s, border-color 0.3s;
     text-align: left;
     min-height: 60px; 
+    touch-action: manipulation;
 }
 
 .opcion:hover {
@@ -94,7 +89,7 @@ body {
 
 .info-seccion {
     width: 300px; 
-    background-color: rgba(22, 27, 34, 0.1); 
+    background-color: rgba(22, 27, 34, 0.85); 
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
@@ -111,12 +106,10 @@ body {
     text-align: center;
 }
 
-/* === OCULTAR COMODINES NO USADOS (SOLUCIÓN SEGURA) === */
 #comodin-llamada,
 #comodin-publico {
     display: none !important; 
 }
-/* ====================================================== */
 
 .marcador-contenedor {
     margin-bottom: 20px;
@@ -125,17 +118,13 @@ body {
     border-radius: 8px;
     text-align: center;
     flex-grow: 1;
-    /* Fondo gris con 30% de opacidad */
     background-color: rgba(128, 128, 128, 0.3);
 }
 
-/* Estilos para la lista de premios (DOS COLUMNAS) */
 #marcador-lista {
     list-style-type: none;
     padding: 0;
     margin: 0;
-    
-    /* Grid para dos columnas sin invertir la dirección */
     display: grid;
     grid-template-columns: 1fr 1fr; 
     gap: 5px 15px; 
@@ -149,11 +138,8 @@ body {
     font-weight: bold;
     color: #8b949e; 
     transition: all 0.3s;
-    
-    /* Alineación a la derecha */
     text-align: right; 
 }
-
 
 #marcador-lista li.nivel-superado {
     color: #58a6ff; 
@@ -166,7 +152,6 @@ body {
     transform: scale(1.05);
 }
 
-/* Estilo para los niveles "Seguro" */
 #marcador-lista li.nivel-seguro {
     color: #c9d1d9; 
     border: 1px dashed #50555c;
@@ -178,7 +163,6 @@ body {
     opacity: 1;
 }
 
-
 .comodin {
     width: 100%;
     padding: 10px;
@@ -189,6 +173,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s;
+    touch-action: manipulation;
 }
 
 .comodin:hover:not(:disabled) {
@@ -211,6 +196,7 @@ body {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.2s;
+    touch-action: manipulation;
 }
 
 #iniciar-juego:hover {
@@ -220,42 +206,6 @@ body {
 @keyframes pulse-correct {
     0% { transform: scale(1); }
     100% { transform: scale(1.02); }
-}
-
-@media (max-width: 768px) {
-    .contenedor-juego {
-        flex-direction: column; 
-        width: 95%; 
-        margin-top: 20px;
-        gap: 15px;
-    }
-
-    .info-seccion {
-        width: 100%; 
-        order: -1; 
-        min-height: auto; 
-    }
-
-    .pregunta-texto {
-        font-size: 1.4em;
-        min-height: 60px;
-    }
-
-    .opcion {
-        padding: 12px 15px;
-        font-size: 1em;
-        min-height: 50px;
-    }
-
-    .opciones-contenedor {
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    
-    /* Vuelve a una columna en dispositivos pequeños */
-    #marcador-lista {
-        grid-template-columns: 1fr;
-    }
 }
 
 #timer-contenedor {
@@ -300,9 +250,8 @@ body {
     font-weight: bold;
 }
 
-/* CONTENEDOR DEL LLAMADO DE ESTUDIANTES */
 #seleccion-jugador-contenedor {
-    background-color: rgba(63, 25, 73, 0.8); 
+    background-color: rgba(30, 20, 50, 0.95); 
     padding: 30px;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
@@ -326,24 +275,30 @@ body {
     text-align: left;
 }
 
-#seleccion-jugador-contenedor select,
-#seleccion-jugador-contenedor button {
+#seleccion-jugador-contenedor input[type="text"] {
     width: 100%;
     padding: 12px;
-    font-size: 1.1em;
+    font-size: 16px;
     border-radius: 5px;
     border: 1px solid #50555c;
     background-color: #21262d;
     color: #f0f6fc;
     box-sizing: border-box; 
+    margin-bottom: 5px;
 }
 
 #seleccion-jugador-contenedor button {
-    background-color: #30a7d8;
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1em;
+    border-radius: 5px;
     border: none;
+    background-color: #30a7d8;
+    color: #f0f6fc;
     cursor: pointer;
     margin-top: 20px;
     font-weight: bold;
+    touch-action: manipulation;
 }
 
 #seleccion-jugador-contenedor button:disabled {
@@ -352,21 +307,90 @@ body {
     opacity: 0.6;
 }
 
-/* Estilo específico para el mensaje de estado de carga de estudiantes */
-#status-mensaje {
-    font-size: 1.3em; 
-    color: #2ea44f;  
-    font-weight: bold; 
+.mjx-chtml {
+    font-size: 90% !important;
+    max-width: 100% !important;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
-#seleccion-jugador-contenedor input[type="text"] {
-    width: 100%;
-    padding: 12px;
-    font-size: 1.1em;
-    border-radius: 5px;
-    border: 1px solid #50555c;
-    background-color: #21262d;
-    color: #f0f6fc;
-    box-sizing: border-box; 
-    margin-bottom: 5px;
+/* === OPTIMIZACIÓN EXCLUSIVA PARA MÓVILES === */
+@media (max-width: 768px) {
+    body {
+        background-attachment: scroll;
+    }
+
+    .contenedor-juego {
+        flex-direction: column; 
+        width: 100%; 
+        padding: 0 10px;
+        margin-top: 10px;
+        gap: 10px;
+        box-sizing: border-box;
+    }
+
+    .info-seccion {
+        width: 100%; 
+        order: -1; 
+        min-height: auto; 
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .pregunta-seccion {
+        padding: 12px;
+        box-sizing: border-box;
+    }
+
+    .comodines-contenedor {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 12px;
+        margin-bottom: 5px;
+    }
+
+    .comodin {
+        width: auto;
+        margin-bottom: 0;
+        padding: 8px 15px;
+    }
+
+    #timer-contenedor {
+        font-size: 1.1em;
+        padding: 5px 12px;
+        margin-top: 0;
+    }
+
+    .comodines-contenedor h4,
+    .comodines-contenedor h4[style] {
+        display: none !important;
+    }
+
+    .marcador-inferior {
+        display: none !important;
+    }
+
+    .pregunta-texto {
+        font-size: 1.05em;
+        min-height: auto;
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .opciones-contenedor {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .opcion {
+        padding: 12px 15px;
+        font-size: 0.95em;
+        min-height: 48px;
+    }
+
+    #seleccion-jugador-contenedor {
+        margin-top: 5vh;
+        padding: 20px;
+    }
 }

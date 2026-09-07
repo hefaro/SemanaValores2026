@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Certificado de Auditoría y Desempeño</title>
     <style>
         * {
@@ -22,7 +22,6 @@
             padding: 1rem;
         }
 
-        /* Tarjeta del Diploma */
         .diploma-card {
             background: #ffffff;
             border: 6px double #0f766e;
@@ -61,6 +60,7 @@
             display: inline-block;
             padding: 0 1rem 0.2rem 1rem;
             margin: 0.75rem 0 !important;
+            word-break: break-word;
         }
 
         .diploma-texto {
@@ -88,11 +88,13 @@
             color: #475569;
         }
 
-        /* Controles fuera de la vista de impresión */
         .panel-acciones {
             margin-top: 1.5rem;
             display: flex;
             gap: 0.75rem;
+            width: 100%;
+            max-width: 500px;
+            justify-content: center;
         }
 
         .btn-accion {
@@ -105,13 +107,26 @@
             cursor: pointer;
             font-family: 'Courier New', Courier, monospace;
             transition: background 0.2s;
+            width: 100%;
+            touch-action: manipulation;
         }
 
         .btn-accion:hover {
             background-color: #22d3ee;
         }
 
-        /* Reglas estricta para impresión limpia / PDF */
+        @media (max-width: 480px) {
+            .diploma-card {
+                padding: 1.5rem 1rem;
+            }
+            .diploma-card h3 {
+                font-size: 1.1rem;
+            }
+            .diploma-nombre {
+                font-size: 1.1rem;
+            }
+        }
+
         @media print {
             body {
                 background: white !important;
@@ -158,7 +173,6 @@
     </div>
 
     <script>
-        // Lectura de parámetros desde la URL
         function cargarDatosDiploma() {
             const params = new URLSearchParams(window.location.search);
             
@@ -167,7 +181,6 @@
             const puntaje = params.get('puntaje');
             const fecha = params.get('fecha');
 
-            // Si existen en la URL, los actualiza; de lo contrario mantiene los valores de prueba
             if (nombre) document.getElementById('diploma-nombre').innerText = decodeURIComponent(nombre);
             if (juego) document.getElementById('diploma-juego').innerText = decodeURIComponent(juego);
             if (puntaje) document.getElementById('diploma-score').innerText = `${decodeURIComponent(puntaje)} / 5.0`;
@@ -175,7 +188,6 @@
             if (fecha) {
                 document.getElementById('diploma-hora').innerText = decodeURIComponent(fecha);
             } else {
-                // Fecha por defecto si se prueba directamente sin parámetros
                 const horaLocal = new Date().toLocaleString('es-CO', { 
                     dateStyle: 'short', 
                     timeStyle: 'medium' 
