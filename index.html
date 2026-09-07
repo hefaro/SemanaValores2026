@@ -62,10 +62,12 @@
                 <h3>🎡 Suma y multiplicación</h3>
                 <p>Resuelve dilemas en tiempo real.</p>
             </div>
-            <div class="card-juego" id="btn-emparejar" onclick="lanzarJuego('emparejar')">
+
+            <div class="card-juego" id="btn-emparejar" onclick="lanzarJuego('atraviesa')">
                 <h3>🧩 Match de Valores</h3>
-                <p>Asocia cada valor con su acción. (Próximamente)</p>
+                <p>Asocia cada valor con su acción</p>
             </div>
+
             <div class="card-juego" id="btn-trivia" onclick="lanzarJuego('trivia')">
                 <h3>🎯 Desafío del Respeto</h3>
                 <p>Preguntas rápidas sobre tolerancia. (Próximamente)</p>
@@ -79,6 +81,8 @@
                 window.location.href = 'qqsm/index.html';
             } else if (tipo === 'enteros') {
                 window.location.href = 'FCEnteros/index.html';
+            } else if (tipo === 'atraviesa') {
+                window.location.href = 'atraviesa/index.html';
             } else {
                 alert('Este juego estará disponible próximamente.');
             }

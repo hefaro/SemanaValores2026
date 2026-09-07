@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafío Matemático</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Carga de MathJax para formato matemático LaTeX -->
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+    <h1>Desafío Matemático 🎓</h1>
+    <div id="game-board"></div>
+
+    <!-- Modal para el ingreso del nombre -->
+    <div id="start-modal" class="modal">
+        <div class="modal-content">
+            <h2>¡Bienvenido al Desafío Matemático!</h2>
+            <p>Ingresa tu nombre para comenzar la prueba:</p>
+            <input type="text" id="player-name-input" placeholder="Nombre completo" autocomplete="off" />
+            <button id="start-game-btn">Iniciar Juego 🚀</button>
+        </div>
+    </div>
+
+    <!-- Modal para las preguntas -->
+    <div id="question-modal" class="modal modal-hidden">
+        <div class="modal-content">
+            <h2 id="question-text"></h2>
+            <div id="answer-options"></div>
+            <button id="submit-answer">Responder</button>
+            <p id="feedback-text"></p>
+        </div>
+    </div>
+
+    <!-- Contenedor del Diploma -->
+    <div id="certificate-modal" class="modal modal-hidden">
+        <div class="modal-content certificate-content">
+            <div class="certificate-border" id="certificate-to-print">
+                <div class="certificate-header">
+                    <h2>🏆 DIPLOMA DE EXCELENCIA 🏆</h2>
+                    <p>Otorgado con orgullo a:</p>
+                </div>
+                <h1 id="cert-player-name">Nombre del Estudiante</h1>
+                <p class="certificate-body">
+                    Por haber superado exitosamente todas las pruebas de razonamiento matemático, demostrando dedicación, destreza y excelencia académica en el <strong>Desafío Matemático</strong>.
+                </p>
+                <div class="certificate-footer">
+                    <div class="signature">
+                        <hr>
+                        <p>Docente de Matemáticas</p>
+                    </div>
+                    <div class="date-container">
+                        <p id="cert-date"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="certificate-actions">
+                <button id="print-cert-btn">🖨️ Imprimir / Guardar PDF</button>
+                <button id="restart-game-btn">🔄 Jugar de Nuevo</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
