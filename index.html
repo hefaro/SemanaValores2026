@@ -64,13 +64,13 @@
             </div>
 
             <div class="card-juego" id="btn-emparejar" onclick="lanzarJuego('atraviesa')">
-                <h3>🧩 Match de Valores</h3>
+                <h3>🧩 Atraviesa</h3>
                 <p>Asocia cada valor con su acción</p>
             </div>
 
-            <div class="card-juego" id="btn-trivia" onclick="lanzarJuego('trivia')">
-                <h3>🎯 Desafío del Respeto</h3>
-                <p>Preguntas rápidas sobre tolerancia. (Próximamente)</p>
+            <div class="card-juego" id="btn-trivia" onclick="lanzarJuego('funciones')">
+                <h3>🎯 Funciones </h3>
+                <p>Preguntas rápidas sobre funciones </p>
             </div>
         </div>
     </div>
@@ -83,6 +83,9 @@
                 window.location.href = 'FCEnteros/index.html';
             } else if (tipo === 'atraviesa') {
                 window.location.href = 'atraviesa/index.html';
+ 	    } else if (tipo === 'funciones') {
+                window.location.href = 'funciones/index.html';
+
             } else {
                 alert('Este juego estará disponible próximamente.');
             }
